@@ -1,5 +1,5 @@
 # Time-Calculator
-A small tool to perform basic calculations involving time durations.
+A basic tool written in C++ to perform basic calculations involving time durations.
 
 
 
