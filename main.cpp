@@ -19,7 +19,7 @@ void print_error(std::string errorVal);
 
 bool verifyTimeFormat(std::string inputtedTimeVal)
 {
-    int hours, minutes, seconds;
+    double hours, minutes, seconds;
     char colon1;
     char colon2;
     
@@ -28,13 +28,13 @@ bool verifyTimeFormat(std::string inputtedTimeVal)
     if (inputString >> hours >> colon1 >> minutes >> colon2 >> seconds
         && colon1 == ':' && colon2 == ':')
     {
-        // Return true if the inputted time values are properly simplified
+        // Return true only if the inputted time durations are properly simplified.
         // return (hours >= 0 && hours <= 23) &&
         //         (minutes >= 0 && minutes <= 59) &&
         //         (seconds >= 0 && seconds <= 59);
 
 
-        // Return true if the time values are formatted properly regardless of the numbers themselves
+        // Return true if the time values are formatted properly regardless of the values contained within the inputted time durations.
         return true;
     }
 
@@ -63,9 +63,17 @@ auto main(int argc, char** argv) -> int
 {
 
     // Verify that the proper number of arguments were passed
-    if ( argc != 4 )
+    if ( argc < 4 )
     {
         std::string errorVal = "Not enough arguments.";
+        print_usage(argv[0]);
+        print_error(errorVal);
+        return 1;
+    }
+
+    else if ( argc > 4 )
+    {
+        std::string errorVal = "Too many arguments.";
         print_usage(argv[0]);
         print_error(errorVal);
         return 1;
@@ -141,7 +149,7 @@ void menu()
 
 std::string addTimes(std::string time1, std::string time2)
 {
-    std::cout << "Chosen algorithm: \"add\":\n";
+    std::cout << "Chosen algorithm: \"add\"\n";
     std::string addTimesResultVal;
     std::string resultHour, resultMin, resultSec;
 
@@ -171,45 +179,60 @@ std::string addTimes(std::string time1, std::string time2)
     seconds2 = stod(seconds2str);
 
 
-    if (stod(hours1str) < 10)
+    if (stod(hours1str) < 10 && stod(hours1str) > 0)
     {
         hours1str = "0" + hours1str;
     }
+    else if (stod(hours1str) == 0)
+        hours1str = "00";
 
-    if (stod(minutes1str) < 10)
+    if (stod(minutes1str) < 10 && stod(minutes1str) > 0)
     {
         minutes1str = "0" + minutes1str;
     }
+    else if (stod(minutes1str) == 0)
+        minutes1str = "00";
 
-    if (stod(seconds1str) < 10)
+    if (stod(seconds1str) < 10 && stod(seconds1str) > 0)
     {
         seconds1str = "0" + seconds1str;
     }
+    else if (stod(seconds1str) == 0)
+        seconds1str = "00";
 
-    if (stod(hours2str) < 10)
+    if (stod(hours2str) < 10 && stod(hours2str) > 0)
     {
         hours2str = "0" + hours2str;
     }
+    else if (stod(hours2str) == 0)
+        hours2str = "00";
 
-    if (stod(minutes2str) < 10)
+    if (stod(minutes2str) < 10 && stod(minutes2str) > 0)
     {
         minutes2str = "0" + minutes2str;
     }
+    else if (stod(minutes2str) == 0)
+        minutes2str = "00";
 
-    if (stod(seconds2str) < 10)
+    if (stod(seconds2str) < 10 && stod(seconds2str) > 0)
     {
         seconds2str = "0" + seconds2str;
     }
+    else if (stod(seconds2str) == 0)
+        seconds2str = "00";
 
 
     double time1seconds = convertTimeToSeconds(hours1, minutes1, seconds1);
     double time2seconds = convertTimeToSeconds(hours2, minutes2, seconds2);
     double addedSeconds = time1seconds + time2seconds;
 
+
+    // Debugging message
     // std::cout << "Converted seconds = " << time1seconds << " + " << time2seconds << " = " << addedSeconds << "\n";
 
     std::string simplifiedTime = simplifyTime(addedSeconds);
 
+    // Debugging message
     // std::cout << "Simplified time = " << simplifiedTime << "\n";
 
 
@@ -225,7 +248,7 @@ std::string addTimes(std::string time1, std::string time2)
 
 std::string subtractTimes(std::string time1, std::string time2)
 {
-    std::cout << "Chosen algorithm: \"subtract\":\n";
+    std::cout << "Chosen algorithm: \"subtract\"\n";
     std::string subtractTimesResultVal;
     std::string resultHour, resultMin, resultSec;
 
@@ -254,41 +277,54 @@ std::string subtractTimes(std::string time1, std::string time2)
     minutes2 = stod(minutes2str);
     seconds2 = stod(seconds2str);
 
-    if (stod(hours1str) < 10)
+    if (stod(hours1str) < 10 && stod(hours1str) > 0)
     {
         hours1str = "0" + hours1str;
     }
+    else if (stod(hours1str) == 0)
+        hours1str = "00";
 
-    if (stod(minutes1str) < 10)
+    if (stod(minutes1str) < 10 && stod(minutes1str) > 0)
     {
         minutes1str = "0" + minutes1str;
     }
+    else if (stod(minutes1str) == 0)
+        minutes1str = "00";
 
-    if (stod(seconds1str) < 10)
+    if (stod(seconds1str) < 10 && stod(seconds1str) > 0)
     {
         seconds1str = "0" + seconds1str;
     }
+    else if (stod(seconds1str) == 0)
+        seconds1str = "00";
 
-    if (stod(hours2str) < 10)
+    if (stod(hours2str) < 10 && stod(hours2str) > 0)
     {
         hours2str = "0" + hours2str;
     }
+    else if (stod(hours2str) == 0)
+        hours2str = "00";
 
-    if (stod(minutes2str) < 10)
+    if (stod(minutes2str) < 10 && stod(minutes2str) > 0)
     {
         minutes2str = "0" + minutes2str;
     }
+    else if (stod(minutes2str) == 0)
+        minutes2str = "00";
 
-    if (stod(seconds2str) < 10)
+    if (stod(seconds2str) < 10 && stod(seconds2str) > 0)
     {
         seconds2str = "0" + seconds2str;
     }
+    else if (stod(seconds2str) == 0)
+        seconds2str = "00";
 
 
     double time1seconds = convertTimeToSeconds(hours1, minutes1, seconds1);
     double time2seconds = convertTimeToSeconds(hours2, minutes2, seconds2);
     double subtractedSeconds = time1seconds - time2seconds;
 
+    // Debugging message
     // std::cout << "Converted seconds = " << time1seconds << " - " << time2seconds << " = " << subtractedSeconds << "\n";
     std::string inputTime1 = "\nTime1 = " + hours1str + ":" + minutes1str + ":" + seconds1str + "\n";
     std::string inputTime2 = "Time2 = " + hours2str + ":" + minutes2str + ":" + seconds2str + "\n";
@@ -302,6 +338,8 @@ std::string subtractTimes(std::string time1, std::string time2)
     else
     {
         std::string simplifiedTime = simplifyTime(subtractedSeconds);
+
+        // Debugging message
         // std::cout << "Simplified time = " << simplifiedTime << "\n";
         sumTime = "\nResult = " + simplifiedTime + "\n";
     }
@@ -333,17 +371,30 @@ std::string simplifyTime(double seconds)
 
     if (resultHours < 10 && resultHours >= 0)
     {
+        // Add single leading 0 to the string "resultHours" 
         hourStr = "0" + std::to_string(resultHours);
+    }
+    else if (resultHours == 0)
+    {
+        hourStr = "00" + std::to_string(resultHours);
     }
 
     if (resultMinutes < 10 && resultMinutes >=0)
     {
         minStr = "0" + std::to_string(resultMinutes);
     }
+    else if (resultMinutes == 0)
+    {
+        hourStr = "00" + std::to_string(resultHours);
+    }
 
     if (resultSeconds < 10 && resultSeconds >= 0)
     {
         secStr = "0" + std::to_string(resultSeconds);
+    }
+    else if (resultSeconds == 0)
+    {
+        hourStr = "00" + std::to_string(resultHours);
     }
 
     std::string simplifiedTime = hourStr + ":" + minStr + ":" + secStr;
