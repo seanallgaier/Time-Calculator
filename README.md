@@ -1,6 +1,8 @@
 # Time-Calculator
 A small tool to perform basic calculations involving lengths of time.
 
+
+
 ## Installation
 Simply use the command `make` in the repo's directory to compile the code and then use `./time_calculator` to launch the executable.
 
