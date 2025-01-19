@@ -9,8 +9,8 @@
 void menu();
 std::string addTimes(std::string time1, std::string time2);
 std::string subtractTimes(std::string time1, std::string time2);
-double convertTimeToSeconds(double hrs, double min, double sec);
-std::string simplifyTime(double seconds);
+int convertTimeToSeconds(int hrs, int min, int sec);
+std::string simplifyTime(int seconds);
 void errorMessage();
 bool verifyTimeFormat(std::string inputtedTimeVal);
 void print_error(std::string errorVal);
@@ -19,7 +19,7 @@ void print_error(std::string errorVal);
 
 bool verifyTimeFormat(std::string inputtedTimeVal)
 {
-    double hours, minutes, seconds;
+    int hours, minutes, seconds;
     char colon1;
     char colon2;
     
@@ -156,8 +156,8 @@ std::string addTimes(std::string time1, std::string time2)
     std::string hours1str, minutes1str, seconds1str;
     std::string hours2str, minutes2str, seconds2str;
 
-    double hours1, minutes1, seconds1;
-    double hours2, minutes2, seconds2;
+    int hours1, minutes1, seconds1;
+    int hours2, minutes2, seconds2;
     
     std::stringstream time1Val(time1);
     std::stringstream time2Val(time2);
@@ -222,9 +222,9 @@ std::string addTimes(std::string time1, std::string time2)
         seconds2str = "00";
 
 
-    double time1seconds = convertTimeToSeconds(hours1, minutes1, seconds1);
-    double time2seconds = convertTimeToSeconds(hours2, minutes2, seconds2);
-    double addedSeconds = time1seconds + time2seconds;
+    int time1seconds = convertTimeToSeconds(hours1, minutes1, seconds1);
+    int time2seconds = convertTimeToSeconds(hours2, minutes2, seconds2);
+    int addedSeconds = time1seconds + time2seconds;
 
 
     // Debugging message
@@ -236,8 +236,8 @@ std::string addTimes(std::string time1, std::string time2)
     // std::cout << "Simplified time = " << simplifiedTime << "\n";
 
 
-    std::string inputTime1 = "\nTime1 = " + hours1str + ":" + minutes1str + ":" + seconds1str + "\n";
-    std::string inputTime2 = "Time2 = " + hours2str + ":" + minutes2str + ":" + seconds2str + "\n";
+    std::string inputTime1 = "\nTime 1 = " + hours1str + ":" + minutes1str + ":" + seconds1str + "\n";
+    std::string inputTime2 = "Time 2 = " + hours2str + ":" + minutes2str + ":" + seconds2str + "\n";
     std::string sumTime = "\nResult = " + simplifiedTime + "\n";
 
     std::string timeVals = inputTime1 + inputTime2 + sumTime;
@@ -255,8 +255,8 @@ std::string subtractTimes(std::string time1, std::string time2)
     std::string hours1str, minutes1str, seconds1str;
     std::string hours2str, minutes2str, seconds2str;
 
-    double hours1, minutes1, seconds1;
-    double hours2, minutes2, seconds2;
+    int hours1, minutes1, seconds1;
+    int hours2, minutes2, seconds2;
     
     std::stringstream time1Val(time1);
     std::stringstream time2Val(time2);
@@ -320,47 +320,49 @@ std::string subtractTimes(std::string time1, std::string time2)
         seconds2str = "00";
 
 
-    double time1seconds = convertTimeToSeconds(hours1, minutes1, seconds1);
-    double time2seconds = convertTimeToSeconds(hours2, minutes2, seconds2);
-    double subtractedSeconds = time1seconds - time2seconds;
+    int time1seconds = convertTimeToSeconds(hours1, minutes1, seconds1);
+    int time2seconds = convertTimeToSeconds(hours2, minutes2, seconds2);
+    int subtractedSeconds = time1seconds - time2seconds;
 
     // Debugging message
     // std::cout << "Converted seconds = " << time1seconds << " - " << time2seconds << " = " << subtractedSeconds << "\n";
-    std::string inputTime1 = "\nTime1 = " + hours1str + ":" + minutes1str + ":" + seconds1str + "\n";
-    std::string inputTime2 = "Time2 = " + hours2str + ":" + minutes2str + ":" + seconds2str + "\n";
+    std::string inputTime1 = "\nTime 1 = " + hours1str + ":" + minutes1str + ":" + seconds1str + "\n";
+    std::string inputTime2 = "Time 2 = " + hours2str + ":" + minutes2str + ":" + seconds2str + "\n";
 
-    std::string sumTime;
+    std::string sumTime, errorMsg;
 
     if (subtractedSeconds < 0)
     {
-        sumTime = "\nError: Result cannot be negative\n";
+        errorMsg = "\nError: Result cannot be negative\n";
     }
     else
     {
-        std::string simplifiedTime = simplifyTime(subtractedSeconds);
-
-        // Debugging message
-        // std::cout << "Simplified time = " << simplifiedTime << "\n";
-        sumTime = "\nResult = " + simplifiedTime + "\n";
+        errorMsg = "";
     }
+    
+    std::string simplifiedTime = simplifyTime(subtractedSeconds);
 
-    std::string timeVals = inputTime1 + inputTime2 + sumTime;
+    // Debugging message
+    // std::cout << "Simplified time = " << simplifiedTime << "\n";
+    sumTime = "\nResult = " + simplifiedTime + "\n";
+
+    std::string timeVals = inputTime1 + inputTime2 + sumTime + errorMsg;
     return timeVals;
 
 }
 
 //-------------------------------------------------------------------------------------------------
 
-double convertTimeToSeconds(double hrs, double min, double sec)
+int convertTimeToSeconds(int hrs, int min, int sec)
 {
-    double convertedHrs = (hrs * 60) * 60;
-    double convertedMin = min * 60;
+    int convertedHrs = (hrs * 60) * 60;
+    int convertedMin = min * 60;
     return convertedHrs + convertedMin + sec;
 }
 
 //-------------------------------------------------------------------------------------------------
 
-std::string simplifyTime(double seconds)
+std::string simplifyTime(int seconds)
 {
     int firstQuotient = seconds / 60;
     int resultSeconds = (int)seconds % 60;
