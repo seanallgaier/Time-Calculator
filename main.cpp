@@ -14,6 +14,7 @@ std::string simplifyTime(int seconds);
 void errorMessage();
 bool verifyTimeFormat(std::string inputtedTimeVal);
 void print_error(std::string errorVal);
+std::string singlePadding(std::string timeInput);
 
 //-------------------------------------------------------------------------------------------------
 
@@ -180,47 +181,34 @@ std::string addTimes(std::string time1, std::string time2)
 
 
     if (stod(hours1str) < 10 && stod(hours1str) > 0)
-    {
-        hours1str = "0" + hours1str;
-    }
+        hours1str = singlePadding(hours1str);
     else if (stod(hours1str) == 0)
         hours1str = "00";
 
     if (stod(minutes1str) < 10 && stod(minutes1str) > 0)
-    {
-        minutes1str = "0" + minutes1str;
-    }
+        minutes1str = singlePadding(minutes1str);
     else if (stod(minutes1str) == 0)
         minutes1str = "00";
 
     if (stod(seconds1str) < 10 && stod(seconds1str) > 0)
-    {
-        seconds1str = "0" + seconds1str;
-    }
+        seconds1str = singlePadding(seconds1str);
     else if (stod(seconds1str) == 0)
         seconds1str = "00";
 
     if (stod(hours2str) < 10 && stod(hours2str) > 0)
-    {
-        hours2str = "0" + hours2str;
-    }
+        hours2str = singlePadding(hours2str);
     else if (stod(hours2str) == 0)
         hours2str = "00";
 
     if (stod(minutes2str) < 10 && stod(minutes2str) > 0)
-    {
-        minutes2str = "0" + minutes2str;
-    }
+        minutes2str = singlePadding(minutes2str);
     else if (stod(minutes2str) == 0)
         minutes2str = "00";
 
     if (stod(seconds2str) < 10 && stod(seconds2str) > 0)
-    {
-        seconds2str = "0" + seconds2str;
-    }
+        seconds2str = singlePadding(seconds2str);
     else if (stod(seconds2str) == 0)
         seconds2str = "00";
-
 
     int time1seconds = convertTimeToSeconds(hours1, minutes1, seconds1);
     int time2seconds = convertTimeToSeconds(hours2, minutes2, seconds2);
@@ -278,44 +266,32 @@ std::string subtractTimes(std::string time1, std::string time2)
     seconds2 = stod(seconds2str);
 
     if (stod(hours1str) < 10 && stod(hours1str) > 0)
-    {
-        hours1str = "0" + hours1str;
-    }
+        hours1str = singlePadding(hours1str);
     else if (stod(hours1str) == 0)
         hours1str = "00";
 
     if (stod(minutes1str) < 10 && stod(minutes1str) > 0)
-    {
-        minutes1str = "0" + minutes1str;
-    }
+        minutes1str = singlePadding(minutes1str);
     else if (stod(minutes1str) == 0)
         minutes1str = "00";
 
     if (stod(seconds1str) < 10 && stod(seconds1str) > 0)
-    {
-        seconds1str = "0" + seconds1str;
-    }
+        seconds1str = singlePadding(seconds1str);
     else if (stod(seconds1str) == 0)
         seconds1str = "00";
 
     if (stod(hours2str) < 10 && stod(hours2str) > 0)
-    {
-        hours2str = "0" + hours2str;
-    }
+        hours2str = singlePadding(hours2str);
     else if (stod(hours2str) == 0)
         hours2str = "00";
 
     if (stod(minutes2str) < 10 && stod(minutes2str) > 0)
-    {
-        minutes2str = "0" + minutes2str;
-    }
+        minutes2str = singlePadding(minutes2str);
     else if (stod(minutes2str) == 0)
         minutes2str = "00";
 
     if (stod(seconds2str) < 10 && stod(seconds2str) > 0)
-    {
-        seconds2str = "0" + seconds2str;
-    }
+        seconds2str = singlePadding(seconds2str);
     else if (stod(seconds2str) == 0)
         seconds2str = "00";
 
@@ -332,13 +308,9 @@ std::string subtractTimes(std::string time1, std::string time2)
     std::string sumTime, errorMsg;
 
     if (subtractedSeconds < 0)
-    {
         errorMsg = "\nError: Result cannot be negative\n";
-    }
     else
-    {
         errorMsg = "";
-    }
     
     std::string simplifiedTime = simplifyTime(subtractedSeconds);
 
@@ -371,36 +343,31 @@ std::string simplifyTime(int seconds)
 
     std::string hourStr = std::to_string(resultHours), minStr = std::to_string(resultMinutes), secStr = std::to_string(resultSeconds);
 
-    if (resultHours < 10 && resultHours >= 0)
-    {
-        // Add single leading 0 to the string "resultHours" 
-        hourStr = "0" + std::to_string(resultHours);
-    }
+    if (resultHours < 10 && resultHours > 0)
+        hourStr = singlePadding(hourStr);
     else if (resultHours == 0)
-    {
-        hourStr = "00" + std::to_string(resultHours);
-    }
+        hourStr = "00";
 
-    if (resultMinutes < 10 && resultMinutes >=0)
-    {
-        minStr = "0" + std::to_string(resultMinutes);
-    }
+    if (resultMinutes < 10 && resultMinutes > 0)
+        minStr = singlePadding(minStr);
     else if (resultMinutes == 0)
-    {
-        hourStr = "00" + std::to_string(resultHours);
-    }
+        minStr = "00";
 
-    if (resultSeconds < 10 && resultSeconds >= 0)
-    {
-        secStr = "0" + std::to_string(resultSeconds);
-    }
+    if (resultSeconds < 10 && resultSeconds > 0)
+        secStr = singlePadding(secStr);
     else if (resultSeconds == 0)
-    {
-        hourStr = "00" + std::to_string(resultHours);
-    }
+        secStr = "00";
 
     std::string simplifiedTime = hourStr + ":" + minStr + ":" + secStr;
     return simplifiedTime;
+}
+
+//-------------------------------------------------------------------------------------------------
+
+std::string singlePadding(std::string timeInput)
+{
+    std::string paddingValue = "0";
+    return paddingValue + timeInput[timeInput.size()-1];
 }
 
 //-------------------------------------------------------------------------------------------------
