@@ -16,5 +16,5 @@ Simply use the `make` command in the repo's directory to compile the code and th
 
 ## Features (Current & Planned)
 - [x] Take two different time durations as input, perform either addition or subtraction, spit out the results
-- [ ] Change the input parameters to accept as many time duration inputs that the user wishes to provide (aka dynamic input parameters)
+- [x] Change the input parameters to accept as many time duration inputs that the user wishes to provide (aka dynamic input parameters)
 - [ ] Accept time parameters contained within an input file
