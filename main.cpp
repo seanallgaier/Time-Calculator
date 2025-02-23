@@ -146,11 +146,11 @@ void menu()
 
 std::string addTimes(int argc, char **argv)
 {
+    std::vector<std::string> timeList;
     std::cout << "Chosen algorithm: \"add\"\n\n";
     std::string timeVals = "";
     std::string sumTime = "";
     int addedSeconds = 0;
-
     
     for (int i = 2; i < argc; i++)
     {
@@ -159,7 +159,7 @@ std::string addTimes(int argc, char **argv)
         int hours, minutes, seconds;
         
         std::stringstream timeVal(argv[i]);
-        
+
         std::getline(timeVal, hourStr, ':');
         std::getline(timeVal, minuteStr, ':');
         std::getline(timeVal, secondStr);
@@ -186,19 +186,31 @@ std::string addTimes(int argc, char **argv)
         int timeSeconds = convertTimeToSeconds(hours, minutes, seconds);
         addedSeconds += timeSeconds;
         
-        std::string inputTime = "Time " + std::to_string(i-1) + " = " + hourStr + ":" + minuteStr + ":" + secondStr + "\n";
+        std::string inputTime = "Time #" + std::to_string(i-1) + " = " + hourStr + ":" + minuteStr + ":" + secondStr + " -> " + simplifyTime(timeSeconds) + "\n";
+
+        timeList.push_back(simplifyTime(timeSeconds));
                 
         timeVals += inputTime;
     }
     std::string simplifiedTime = simplifyTime(addedSeconds);
     sumTime = "\nResult = " + simplifiedTime + "\n";
-    timeVals += sumTime;
+    
+    std::string logicString = timeList[0];
+    for (int i = 1; i < timeList.size(); i++)
+    {
+        logicString = logicString + " + " + timeList[i];
+    }
+
+    std::string equationString = "\n" + logicString + " = " + simplifiedTime + "\n";
+
+    timeVals += equationString + sumTime;
     return timeVals;
 }
     
 //-------------------------------------------------------------------------------------------------
 std::string subtractTimes(int argc, char **argv)
 {
+    std::vector<std::string> timeList;
     std::cout << "Chosen algorithm: \"subtract\"\n\n";
     std::string timeVals = "";
     std::string subtractTime = "";  
@@ -245,8 +257,9 @@ std::string subtractTimes(int argc, char **argv)
         else
             subtractedSeconds -= timeSeconds;
         
-        std::string inputTime = "Time " + std::to_string(i-1) + " = " + hourStr + ":" + minuteStr + ":" + secondStr + "\n";
+        std::string inputTime = "Time #" + std::to_string(i-1) + " = " + hourStr + ":" + minuteStr + ":" + secondStr + " -> " + simplifyTime(timeSeconds) + "\n";
 
+        timeList.push_back(simplifyTime(timeSeconds));
 
         timeVals += inputTime;
         
@@ -254,16 +267,24 @@ std::string subtractTimes(int argc, char **argv)
     std::string errorMsg;
         
     if (subtractedSeconds < 0)
-        errorMsg = "\nError: Result cannot be negative\n";
+        errorMsg = "\nError: Time cannot be negative\n";
     else
         errorMsg = "";
         
     std::string simplifiedTime = simplifyTime(subtractedSeconds);
     subtractTime = "\nResult = " + simplifiedTime + "\n";
+
+    std::string logicString = timeList[0];
+    for (int i = 1; i < timeList.size(); i++)
+    {
+        logicString = logicString + " - " + timeList[i];
+    }
+
+    std::string equationString = "\n" + logicString + " = " + simplifiedTime + "\n";
     
-    timeVals += subtractTime + errorMsg;
+    timeVals += equationString + subtractTime + errorMsg;
+
     return timeVals;
-        
 }
 //-------------------------------------------------------------------------------------------------
     
